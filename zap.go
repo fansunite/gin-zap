@@ -17,13 +17,19 @@ import (
 // It receives:
 //   1. A time package format string (e.g. time.RFC3339).
 //   2. A boolean stating whether to use UTC time zone or local.
-func Ginzap(logger *zap.Logger, timeFormat string, utc bool) gin.HandlerFunc {
+func Ginzap(logger *zap.Logger, timeFormat string, utc bool, skipPaths []string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
 		// some evil middlewares modify this values
 		path := c.Request.URL.Path
 		query := c.Request.URL.RawQuery
 		c.Next()
+
+		for _, skipPath := range skipPaths {
+			if path == skipPath {
+				return
+			}
+		}
 
 		end := time.Now()
 		latency := end.Sub(start)
