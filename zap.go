@@ -45,6 +45,7 @@ func Ginzap(logger *zap.Logger, timeFormat string, utc bool, skipPaths []string)
 		} else {
 			logger.Info(path,
 				zap.Int("status", c.Writer.Status()),
+				zap.String("trace_id", c.GetString("trace_id")),
 				zap.String("method", c.Request.Method),
 				zap.String("path", path),
 				zap.String("query", query),
