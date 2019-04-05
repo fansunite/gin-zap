@@ -1,4 +1,4 @@
-module github.com/gin-contrib/zap
+module github.com/fansunite/gin-zap
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
